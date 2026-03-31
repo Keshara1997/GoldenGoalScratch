@@ -10,8 +10,8 @@ import { getMultiplierConfigsForBet } from './MultiplierConfig';
 export const BET_TIERS = [1];
 
 // Only bet amount 10 is used
-export const MIN_TICKET_COUNT = 1000;
-export const MAX_TICKET_COUNT = 10000;
+export const MIN_TICKET_COUNT = 1_000_000;
+export const MAX_TICKET_COUNT = 10_000_000;
 const WINNING_NUMBERS_COUNT = 5;                  // How many winning numbers are drawn
 const NUMBERS_COUNT = 20;                         // How many numbers appear on a ticket (Y‑area)
 const NUMBER_POOL_SIZE = 100;                     // Numbers range from 00 to 99
@@ -364,7 +364,6 @@ export async function generateBatch(bet: number, count: number): Promise<void> {
                 generateTicket(bet, spec.multiplier, spec.pattern, batchId, i + idx)
             )
         );
-        console.log('tickets', tickets.map(t => t.printed_amounts).flat());
 
         // Insert the generated tickets in smaller batches to avoid huge queries and to log progress
         for (let off = 0; off < tickets.length; off += INSERT_BATCH_SIZE) {
